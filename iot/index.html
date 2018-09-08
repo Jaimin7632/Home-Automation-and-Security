@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IOT APP</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
+<script src="js/jquery.js"></script>  
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="angular.min.js"></script>
+<style type="text/css">
+	td{
+		padding: 5px 10px;
+	}
+	.btn{
+		width: 80px;
+	}
+</style>
+</head>
+<body ng-app='myApp'  ng-controller="mainController" >
+<input type="button" value="AUTO" id="tgl" class="btn btn-primary">
+<input type="button" value="MANUAL" id="tgl1" class="btn btn-primary">
+<br>
+<br>
+<script type="text/javascript">
+  $(document).ready(function(){
+  	 
+
+
+	$('#tgl').click(function(){	          
+      	  $.ajax({
+               type:"post",
+               url:"autowork.php",                              
+               success: function(response){
+                  $('#tbl').hide();      
+               }
+
+         });
+         return false;   
+               
+	});
+
+	$('#tgl1').click(function(){	          
+      	  $.ajax({
+               type:"post",
+               url:"manualwork.php",                              
+               success: function(response){
+                 
+                  $('#tbl').show();
+               }
+
+         });
+         return false;   
+                     
+	});
+  });
+
+</script>
+<table id="tbl">
+	<tr>
+		<td>FAN</td>
+		<td><input type="button" name="fanon" value="ON" id="fanon" class="btn btn-success"></td>
+		<td><input type="button" name="fanoff" value="OFF" id="fanoff" class="btn btn-success"></td>
+	</tr>
+	<tr>
+		<td>LIGHT</td>
+		<td><input type="button" name="lighton" value="ON" id="lighton" class="btn btn-success"></td>
+		<td><input type="button" name="lightoff" value="OFF" id="lightoff" class="btn btn-success"></td>
+	</tr>
+	<tr>
+		<td>AC</td>
+		<td><input type="button" name="acon" value="ON" id="acon" class="btn btn-success"></td>
+		<td><input type="button" name="acoff" value="OFF" id="acoff" class="btn btn-success"></td>
+	</tr>
+
+	<tr>
+		<td>PROJECTOR</td>
+		<td><input type="button" name="projectoron" value="ON" id="projectoron" class="btn btn-success"></td>
+		<td><input type="button" name="projectoroff" value="OFF" id="projectoroff" class="btn btn-success"></td>
+	</tr>
+
+</table>
+
+
+<br>
+<table class="table table-striped">
+   <tr ng-repeat="per in p">
+      <td>{{per.msg}}</td>
+      <td><button ng-click="delete( per.id )" style="border: none; background:  #4C4CB8; color: #fff; border-radius: 4px; padding: 5px 10px;">Clear</button></td>
+   </tr>
+</table>
+<div >
+<div  >{{ per.msg }}</div>
+</div>
+
+<script>
+var myApp = angular.module('myApp', []);
+myApp.controller('mainController',function($scope,$http){
+    $scope.people;
+
+    $scope.get = function() {
+          $http({
+              
+              method: 'GET',
+              url: 'notify.php'
+              
+          }).then(function (response) {
+              
+              // on success
+              $scope.p = response.data;
+               $scope.get();
+
+              
+          });
+    };   
+
+ $scope.delete = function( ida ) {
+
+          $http({
+              
+              method: 'POST',
+              url:  'delnotify.php',
+              data: { recordId : ida }
+              
+          }).then(function (response) {
+        
+              $scope.get();
+        
+          });
+        };
+
+
+          $scope.get();
+    
+        
+});
+
+</script>
+
+
+<script>
+  $(document).ready(function(){
+
+  	
+      $("#fanon").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("FAN ON");
+               }
+
+         });
+         return false;    
+      });
+      $("#fanoff").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("FAN OFF");
+               }
+
+         });
+         return false;    
+      });
+      $("#lighton").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("LIGHT ON");
+               }
+
+         });
+         return false;    
+      });
+      $("#lightoff").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("LIGHT OFF");
+               }
+
+         });
+         return false;    
+      });
+      $("#acon").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("AC ON");
+               }
+
+         });
+         return false;    
+      });
+      $("#acoff").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("AC OFF");
+               }
+
+         });
+         return false;    
+      });
+       $("#projectoron").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("PROJECTOR ON");
+               }
+
+         });
+         return false;    
+      });
+        $("#projectoroff").click(function() {  	
+      	  $.ajax({
+               type:"post",
+               url:this.id+".php",               
+               success: function(response){
+                  alert("PROJECTOR OFF");
+               }
+
+         });
+         return false;    
+      });
+   });
+</script>
+
+</body>
+</html>

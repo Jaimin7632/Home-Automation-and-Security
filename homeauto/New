@@ -1,0 +1,29 @@
+if one==0 and hr==9 and mi==50 and two==0:            
+            GPIO.output(32,GPIO.LOW)    
+        if two==1 and hr==9 and mi==50:
+            GPIO.output(32,GPIO.HIGH)
+            two=0
+        if two==0 and hr==10 and mi==45:            
+            GPIO.output(32,GPIO.LOW)
+
+        if three==1 and hr==11 and mi==30:
+            GPIO.output(32,GPIO.HIGH)
+            three=0
+        if three==0 and hr==12 and mi==25 and four==0:            
+            GPIO.output(32,GPIO.LOW)
+        if four==1 and hr==12 and mi==25:
+            GPIO.output(32,GPIO.HIGH)
+            four=0
+        if four==0 and hr==13 and mi==20:            
+            GPIO.output(32,GPIO.LOW)    
+
+        if five==1 and hr==13 and mi==30:
+            GPIO.output(32,GPIO.HIGH)
+            five=0
+        if five==0 and hr==14 and mi==25 and six==0:            
+            GPIO.output(32,GPIO.LOW)
+        if six==1 and hr==14 and mi==25:
+            GPIO.output(32,GPIO.HIGH)
+            six=0
+        if six==0 and hr==15 and mi==20:            
+            GPIO.output(32,GPIO.LOW)  
